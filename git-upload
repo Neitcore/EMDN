@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if [ $# == 1 ]
+then
+git config --global user.email lostpheonix6@gmail.com
+git add .
+#git commit -m "something"
+git commit -m $1
+git push origin master
+fi
