@@ -1,0 +1,413 @@
+syms a11 a12 a21 a22 b11 b12 b21 b22
+A
+{Undefined function or variable 'A'.
+} 
+A,B = syms a11 a12 a21 a22 b11 b12 b21 b22
+ A,B = syms a11 a12 a21 a22 b11 b12 b21 b22
+            ↑
+{Error: Invalid expression. Check for missing multiplication operator, missing or unbalanced delimiters, or
+other syntax error. To construct matrices, use brackets instead of parentheses.
+} 
+A = [a11 a12;a21 a22];
+B= [b11 b12; b21 b22];
+C = A*B
+ 
+C =
+ 
+[ a11*b11 + a12*b21, a11*b12 + a12*b22]
+[ a21*b11 + a22*b21, a21*b12 + a22*b22]
+ 
+D = A.*B
+ 
+D =
+ 
+[ a11*b11, a12*b12]
+[ a21*b21, a22*b22]
+ 
+%% Kā definēt simbolisko mainigo
+% 1.
+% Definesim x y ka simboliskus mainigus
+% izmantojot "sym"
+x = sym('x');
+y = sym('y');
+%% Atradisim kvadratsakni no x^2
+y = x^2;
+z = sqrt(y)
+ 
+z =
+ 
+(x^2)^(1/2)
+ 
+x = sym('x','positive');
+y = x^2;
+z = sqrt(y)
+ 
+z =
+ 
+x
+ 
+%% Ka definet simbolisko mainigo - 2
+syms x y
+% Saja rinda esam definejusi x,y ka simboliskas mainigus
+syms x y positive
+syms a11 a12 a21 a22
+A = [a11 a12;a21 a22];
+A'
+ 
+ans =
+ 
+[ conj(a11), conj(a21)]
+[ conj(a12), conj(a22)]
+ 
+%% pateiksim ka matricas elementi ir reali
+syms a11 a12 a21 a22 real
+A = [a11 a12;a21 a22];
+A'
+ 
+ans =
+ 
+[ a11, a21]
+[ a12, a22]
+ 
+%% Ka definet simbolisko mainigo - 3
+A = sym('a',[2 3])
+ 
+A =
+ 
+[ a1_1, a1_2, a1_3]
+[ a2_1, a2_2, a2_3]
+ 
+A = sym('a%d%d',[2 3])
+ 
+A =
+ 
+[ a11, a12, a13]
+[ a21, a22, a23]
+ 
+%% Atvasinasana
+syms x
+y = x^2;
+% ar funkciju diff veiksim atvasinasanu
+diff(y);
+diff(y)
+ 
+ans =
+ 
+2*x
+ 
+diff(x^2)
+ 
+ans =
+ 
+2*x
+ 
+% Parcialais atvasinajums
+%% Parcialais atvasinajums
+syms x y
+z = 3*x^5 + 7*y^6;
+diff(z,x)
+ 
+ans =
+ 
+15*x^4
+ 
+diff(z,y)
+ 
+ans =
+ 
+42*y^5
+ 
+%% Integresana
+syms x y
+y = x^3;
+int(y) 
+ 
+ans =
+ 
+x^4/4
+ 
+int(x^3,x)
+ 
+ans =
+ 
+x^4/4
+ 
+%% Noteiktais integralis
+syms x
+int(x,x,0,3)
+ 
+ans =
+ 
+9/2
+ 
+double(int(x,x,0,3))
+
+ans =
+
+    4.5000
+
+%% atbilde nav skaitlis (bet simboliskais mainigais), ar double var parveidot
+double(int(x^2,x,-3,3))
+
+ans =
+
+    18
+
+%% Robezas
+sym x
+ 
+ans =
+ 
+x
+ 
+syms x
+limit(1/(x-1),x,1,'left')
+ 
+ans =
+ 
+-Inf
+ 
+limit(1/(x-1),x,1,'right')
+ 
+ans =
+ 
+Inf
+ 
+%% Vienadojumu risinasana
+syms x
+% risinasim vienadojumu
+% x^2 - 7x + 12 = 0 (saknes 3,4)
+solve(x^2-7x+12==0,x)
+ solve(x^2-7x+12==0,x)
+            ↑
+{Error: Invalid expression. Check for missing multiplication operator, missing or unbalanced delimiters, or
+other syntax error. To construct matrices, use brackets instead of parentheses.
+} 
+solve(x^2 - 7*x + 12==0,x)
+ 
+ans =
+ 
+ 3
+ 4
+ 
+%%Vinadojumu sistema risinjums
+syms x y z
+atb= solve(x+y+z==10,x-y+z==4,x+y-z==0)
+
+atb = 
+
+  <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
+
+    x: [1×1 sym]
+    y: [1×1 sym]
+    z: [1×1 sym]
+
+atb.x
+ 
+ans =
+ 
+2
+ 
+atb.y
+ 
+ans =
+ 
+3
+ 
+atb.z
+ 
+ans =
+ 
+5
+ 
+%% Simboliskas konstantes
+a = vpa(2)
+ 
+a =
+ 
+2.0
+ 
+b = vpa(pi)
+ 
+b =
+ 
+3.1415926535897932384626433832795
+ 
+c = vpa(sqrt(pi))
+ 
+c =
+ 
+1.7724538509055158819194275565678
+ 
+c = vpa(sqrt(2))
+ 
+c =
+ 
+1.4142135623730950488016887242097
+ 
+% zimju skaitu pec komata var mainit
+digits
+ 
+Digits = 32
+ 
+digits(100)
+a = vpa(pi)
+ 
+a =
+ 
+3.141592653589793238462643383279502884197169399375105820974944592307816406286208998628034825342117068
+ 
+b = vpa(exp(1))
+ 
+b =
+ 
+2.71828182845904553488480814849026501178741455078125
+ 
+% vpa = Variable precision Arithmetic
+%% rezultatu vienkarsosana
+syms x
+y = 1/((x-1)*(x-2));
+diff(y)
+ 
+ans =
+ 
+- 1/((x - 1)*(x - 2)^2) - 1/((x - 1)^2*(x - 2))
+ 
+int(y)
+ 
+ans =
+ 
+log(1 - 1/(x - 1))
+ 
+y = (x-4)*(x-5)/((x-1)*(x-2));
+y_atv = diff(y)
+ 
+y_atv =
+ 
+(x - 4)/((x - 1)*(x - 2)) + (x - 5)/((x - 1)*(x - 2)) - ((x - 4)*(x - 5))/((x - 1)*(x - 2)^2) - ((x - 4)*(x - 5))/((x - 1)^2*(x - 2))
+ 
+%% Meginasim vienkarsot:
+simplify(y_atv)
+ 
+ans =
+ 
+(6*(x^2 - 6*x + 7))/(x^2 - 3*x + 2)^2
+ 
+%% citi vienkarsojumi
+syms x
+y = (x-3)*(x-4);
+expand(y)
+ 
+ans =
+ 
+x^2 - 7*x + 12
+ 
+atb = expand(y);
+factor(atb)
+ 
+ans =
+ 
+[ x - 3, x - 4]
+ 
+horner(atb)
+ 
+ans =
+ 
+x*(x - 7) + 12
+ 
+%% Rezultatu skaista attelosena
+y = (x-4)*(x-5)/((x-1)*(x-2));
+pretty(y)
+(x - 4) (x - 5)
+---------------
+(x - 1) (x - 2)
+
+%% Lo darit ar rezultatiem
+% dots:
+y = (x-4)*(x-5)/((x-1)*(x-2));
+% Uzdevums: atrast atvasinajumu, un
+% uzzimet to at funkciju plot
+% Risinajums:
+% 1.definesim simboliskos mainigus
+syms x
+y = (x-4)*(x-5)/((x-1)*(x-2));
+% 2.atvasinasim
+y_atv = diff(y)
+ 
+y_atv =
+ 
+(x - 4)/((x - 1)*(x - 2)) + (x - 5)/((x - 1)*(x - 2)) - ((x - 4)*(x - 5))/((x - 1)*(x - 2)^2) - ((x - 4)*(x - 5))/((x - 1)^2*(x - 2))
+ 
+simplify(y_atv)
+ 
+ans =
+ 
+(6*(x^2 - 6*x + 7))/(x^2 - 3*x + 2)^2
+ 
+y_atv = simplify(y_atv)
+ 
+y_atv =
+ 
+(6*(x^2 - 6*x + 7))/(x^2 - 3*x + 2)^2
+ 
+% 3. Izteiksmes vektorizacija
+% punktinu ieliksana pirms zvaigzni
+y_v = vectorize(y)
+
+y_v =
+
+    '((x - 4).*(x - 5))./((x - 1).*(x - 2))'
+
+y_atv_v = vectorize(y_atv)
+
+y_atv_v =
+
+    '(6.*(x.^2 - 6.*x + 7))./(x.^2 - 3.*x + 2).^2'
+
+% 4. saformesim x ka vektoru
+% x intervals bus dots uzdevuma
+x = [-2:0.01:2-0.01];
+x = -2:0.01:2-0.01;
+% x pieder no [-2,2)
+% 5. ieliksim x, aprekinasim y 
+% 1. risinajums copy-paste
+y_n = ((x - 4).*(x - 5))./((x - 1).*(x - 2));
+% 2 automatiskais izmantojot eval
+% eval - interpretatora funkcija
+y_n = eval(y_v);
+y_atv_n = eval(y_atv_v);
+% 6. uzzimesim 
+plot(x,y_n,x,y_atv_n)
+ylim([-100 100])
+plot(x,y_n,x,y_atv_n)
+ylim([-100 100])
+% 7. grafiku anotacija
+% izteiksmes skaista attelosana - 2
+y_ltx = latex(y)
+
+y_ltx =
+
+    '\frac{\left(x-4\right)\,\left(x-5\right)}{\left(x-1\right)\,\left(x-2\right)}'
+
+y_atv_ltx = latex(x_atv)
+{Undefined function or variable 'x_atv'.
+} 
+y_atv_ltx = latex(y_atv)
+
+y_atv_ltx =
+
+    '\frac{6\,\left(x^2-6\,x+7\right)}{{\left(x^2-3\,x+2\right)}^2}'
+
+h = legend(['$',y_ltx,'$'],['$',y_atv_ltx,'$']);
+[Warning: Error updating Legend.
+
+ String scalar or character vector must have valid interpreter syntax:
+$\frac{\left(x-4\right)\,\left(x-5\right)}{\left(x-1\right)\,\left(x-2\right)}$
+] 
+[Warning: Error updating Legend.
+
+ String scalar or character vector must have valid interpreter syntax:
+$\frac{6\,\left(x^2-6\,x+7\right)}{{\left(x^2-3\,x+2\right)}^2}$
+] 
+set(h,'Interpreter', 'Latex')
+diary off
