@@ -2,7 +2,7 @@ function y = lab3(t)
 if nargin == 0
     t = 0:0.01:5;
 end
-%%Parejos laikus izteiksim ar datu filtraciju
+%%Datu filtracija
 %sin
 t_sin_f = (t>=4.5) & (t<=5);
 t_sin = t(t_sin_f);

@@ -1,0 +1,174 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>lab3</title><meta name="generator" content="MATLAB 9.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-03-02"><meta name="DC.source" content="lab3.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#3">sinusoida</a></li><li><a href="#4">Lineari mainigais signals</a></li><li><a href="#5">konstantes signals</a></li><li><a href="#6">Nulles signal</a></li><li><a href="#7">troksna signals</a></li><li><a href="#8">Visu signalu apvienosana</a></li></ul></div><pre class="codeinput"><span class="keyword">function</span> y = lab3(t)
+</pre><pre class="codeinput"><span class="keyword">if</span> nargin == 0
+    t = 0:0.01:5;
+<span class="keyword">end</span>
+<span class="comment">%%Parejos laikus izteiksim ar datu filtraciju</span>
+<span class="comment">%sin</span>
+t_sin_f = (t&gt;=4.5) &amp; (t&lt;=5);
+t_sin = t(t_sin_f);
+<span class="comment">%saw</span>
+t_saw_f = (t&gt;=0)&amp;(t&lt;0.5);
+t_saw = t(t_saw_f);
+<span class="comment">%const</span>
+t_const_f = (t&gt;=3.5)&amp;(t&lt;4.5);
+t_const = t(t_const_f);
+<span class="comment">%zero</span>
+t_zero_f = (t&gt;=1.5)&amp;(t&lt;3.5);
+t_zero=t(t_zero_f);
+<span class="comment">%noise</span>
+t_noise_f = (t&gt;=0.5)&amp;(t&lt;=1.5);
+t_noise=t(t_noise_f);
+</pre><h2 id="3">sinusoida</h2><pre class="codeinput">A0=0; A= 1.5;
+T = (5-4.5)/2;f=1/T;
+delay = 1.5;
+y_sin=A0+A*sin(2*pi*f*(t_sin-delay));
+<span class="comment">%plot(t_sin,y_sin)</span>
+<span class="comment">%axis([xmin xmax ymin ymax])</span>
+<span class="comment">%axis([0 5 -1.5 1.5])</span>
+</pre><h2 id="4">Lineari mainigais signals</h2><pre class="codeinput"><span class="comment">%k = (yA-yB)/(tA-tB);</span>
+k = (1-0)/(0-0.5);
+delay = 0.5;
+y_saw = k*(t_saw-delay);
+<span class="comment">%hold on</span>
+<span class="comment">%plot(t_saw,y_saw)</span>
+</pre><h2 id="5">konstantes signals</h2><pre class="codeinput">y_const = 1.5+zeros(size(t_const));
+<span class="comment">%plot(t_const,y_const)</span>
+</pre><h2 id="6">Nulles signal</h2><pre class="codeinput">y_zero = zeros(size(t_zero));
+<span class="comment">%plot(t_zero,y_zero)</span>
+</pre><h2 id="7">troksna signals</h2><pre class="codeinput">y_noise = 1.5*rand(size(t_noise))-0.75;
+<span class="comment">%plot(t_noise,y_noise)</span>
+</pre><h2 id="8">Visu signalu apvienosana</h2><pre class="codeinput">t = [t_saw,t_noise,t_zero,t_const,t_sin];
+y = [y_saw,y_noise,y_zero,y_const,y_sin];
+<span class="keyword">if</span> nargout == 0
+    plot(t,y)
+    y=[];
+<span class="keyword">end</span>
+</pre><pre class="codeoutput">
+ans =
+
+     []
+
+</pre><img vspace="5" hspace="5" src="lab3_01.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2018a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+function y = lab3(t)
+if nargin == 0
+    t = 0:0.01:5;
+end
+%%Parejos laikus izteiksim ar datu filtraciju
+%sin
+t_sin_f = (t>=4.5) & (t<=5);
+t_sin = t(t_sin_f);
+%saw
+t_saw_f = (t>=0)&(t<0.5);
+t_saw = t(t_saw_f);
+%const
+t_const_f = (t>=3.5)&(t<4.5);
+t_const = t(t_const_f);
+%zero
+t_zero_f = (t>=1.5)&(t<3.5);
+t_zero=t(t_zero_f);
+%noise
+t_noise_f = (t>=0.5)&(t<=1.5);
+t_noise=t(t_noise_f);
+
+%% sinusoida
+A0=0; A= 1.5;
+T = (5-4.5)/2;f=1/T;
+delay = 1.5;
+y_sin=A0+A*sin(2*pi*f*(t_sin-delay));
+%plot(t_sin,y_sin)
+%axis([xmin xmax ymin ymax])
+%axis([0 5 -1.5 1.5])
+%% Lineari mainigais signals
+%k = (yA-yB)/(tA-tB);
+k = (1-0)/(0-0.5);
+delay = 0.5;
+y_saw = k*(t_saw-delay);
+%hold on
+%plot(t_saw,y_saw)
+%% konstantes signals
+y_const = 1.5+zeros(size(t_const));
+%plot(t_const,y_const)
+%% Nulles signal
+y_zero = zeros(size(t_zero));
+%plot(t_zero,y_zero)
+%% troksna signals
+y_noise = 1.5*rand(size(t_noise))-0.75;
+%plot(t_noise,y_noise)
+%% Visu signalu apvienosana
+t = [t_saw,t_noise,t_zero,t_const,t_sin];
+y = [y_saw,y_noise,y_zero,y_const,y_sin];
+if nargout == 0
+    plot(t,y)
+    y=[];
+end
+##### SOURCE END #####
+--></body></html>
