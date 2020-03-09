@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>lab3</title><meta name="generator" content="MATLAB 9.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-03-02"><meta name="DC.source" content="lab3.m"><style type="text/css">
+      --><title>3.Labaratorijas Darbs</title><meta name="generator" content="MATLAB 9.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-03-09"><meta name="DC.source" content="lab3.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -66,11 +66,13 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#3">sinusoida</a></li><li><a href="#4">Lineari mainigais signals</a></li><li><a href="#5">konstantes signals</a></li><li><a href="#6">Nulles signal</a></li><li><a href="#7">troksna signals</a></li><li><a href="#8">Visu signalu apvienosana</a></li></ul></div><pre class="codeinput"><span class="keyword">function</span> y = lab3(t)
+  </style></head><body><div class="content"><h1>3.Labaratorijas Darbs</h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Signalu apstrade</a></li><li><a href="#2">Darba programma:</a></li><li><a href="#4">sinusoida</a></li><li><a href="#5">Lineari mainigais signals</a></li><li><a href="#6">konstantes signals</a></li><li><a href="#7">Nulles signal</a></li><li><a href="#8">troksna signals</a></li><li><a href="#9">Visu signalu apvienosana</a></li><li><a href="#10">Secinajumi:</a></li></ul></div><h2 id="1">Signalu apstrade</h2><pre class="codeinput"><span class="comment">%%Merki:</span>
+<span class="comment">% * Iemacities apstradat signalu un uztaisit grafiku no datiem</span>
+</pre><h2 id="2">Darba programma:</h2><pre class="codeinput"><span class="keyword">function</span> y = lab3(t)
 </pre><pre class="codeinput"><span class="keyword">if</span> nargin == 0
     t = 0:0.01:5;
 <span class="keyword">end</span>
-<span class="comment">%%Parejos laikus izteiksim ar datu filtraciju</span>
+<span class="comment">%%Datu filtracija</span>
 <span class="comment">%sin</span>
 t_sin_f = (t&gt;=4.5) &amp; (t&lt;=5);
 t_sin = t(t_sin_f);
@@ -86,26 +88,26 @@ t_zero=t(t_zero_f);
 <span class="comment">%noise</span>
 t_noise_f = (t&gt;=0.5)&amp;(t&lt;=1.5);
 t_noise=t(t_noise_f);
-</pre><h2 id="3">sinusoida</h2><pre class="codeinput">A0=0; A= 1.5;
+</pre><h2 id="4">sinusoida</h2><pre class="codeinput">A0=0; A= 1.5;
 T = (5-4.5)/2;f=1/T;
 delay = 1.5;
 y_sin=A0+A*sin(2*pi*f*(t_sin-delay));
 <span class="comment">%plot(t_sin,y_sin)</span>
 <span class="comment">%axis([xmin xmax ymin ymax])</span>
 <span class="comment">%axis([0 5 -1.5 1.5])</span>
-</pre><h2 id="4">Lineari mainigais signals</h2><pre class="codeinput"><span class="comment">%k = (yA-yB)/(tA-tB);</span>
+</pre><h2 id="5">Lineari mainigais signals</h2><pre class="codeinput"><span class="comment">%k = (yA-yB)/(tA-tB);</span>
 k = (1-0)/(0-0.5);
 delay = 0.5;
 y_saw = k*(t_saw-delay);
 <span class="comment">%hold on</span>
 <span class="comment">%plot(t_saw,y_saw)</span>
-</pre><h2 id="5">konstantes signals</h2><pre class="codeinput">y_const = 1.5+zeros(size(t_const));
+</pre><h2 id="6">konstantes signals</h2><pre class="codeinput">y_const = 1.5+zeros(size(t_const));
 <span class="comment">%plot(t_const,y_const)</span>
-</pre><h2 id="6">Nulles signal</h2><pre class="codeinput">y_zero = zeros(size(t_zero));
+</pre><h2 id="7">Nulles signal</h2><pre class="codeinput">y_zero = zeros(size(t_zero));
 <span class="comment">%plot(t_zero,y_zero)</span>
-</pre><h2 id="7">troksna signals</h2><pre class="codeinput">y_noise = 1.5*rand(size(t_noise))-0.75;
+</pre><h2 id="8">troksna signals</h2><pre class="codeinput">y_noise = 1.5*rand(size(t_noise))-0.75;
 <span class="comment">%plot(t_noise,y_noise)</span>
-</pre><h2 id="8">Visu signalu apvienosana</h2><pre class="codeinput">t = [t_saw,t_noise,t_zero,t_const,t_sin];
+</pre><h2 id="9">Visu signalu apvienosana</h2><pre class="codeinput">t = [t_saw,t_noise,t_zero,t_const,t_sin];
 y = [y_saw,y_noise,y_zero,y_const,y_sin];
 <span class="keyword">if</span> nargout == 0
     plot(t,y)
@@ -116,13 +118,18 @@ ans =
 
      []
 
-</pre><img vspace="5" hspace="5" src="lab3_01.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2018a</a><br></p></div><!--
+</pre><img vspace="5" hspace="5" src="lab3_01.png" alt=""> <h2 id="10">Secinajumi:</h2><p>ir iemacits ka apstradat signalu datus un ka uztaisit grafiku no tas datiem</p><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2018a</a><br></p></div><!--
 ##### SOURCE BEGIN #####
+%% 3.Labaratorijas Darbs
+%% Signalu apstrade
+%%Merki:
+% * Iemacities apstradat signalu un uztaisit grafiku no datiem
+%% Darba programma:
 function y = lab3(t)
 if nargin == 0
     t = 0:0.01:5;
 end
-%%Parejos laikus izteiksim ar datu filtraciju
+%%Datu filtracija
 %sin
 t_sin_f = (t>=4.5) & (t<=5);
 t_sin = t(t_sin_f);
@@ -170,5 +177,8 @@ if nargout == 0
     plot(t,y)
     y=[];
 end
+%% Secinajumi:
+% ir iemacits ka apstradat signalu datus un ka uztaisit grafiku no tas
+% datiem
 ##### SOURCE END #####
 --></body></html>

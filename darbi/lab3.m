@@ -1,3 +1,8 @@
+%% 3.Labaratorijas Darbs
+%% Signalu apstrade
+%% Merki:
+% * Iemacities apstradat signalu un uztaisit grafiku no datiem
+%% Darba programma:
 function y = lab3(t)
 if nargin == 0
     t = 0:0.01:5;
@@ -50,3 +55,6 @@ if nargout == 0
     plot(t,y)
     y=[];
 end
+%% Secinajumi:
+% ir iemacits ka apstradat signalu datus un ka uztaisit grafiku no tas
+% datiem
